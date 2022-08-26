@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"nymin/lib_dict"
+	"nymin/solve"
 	"os"
 )
 
@@ -19,12 +20,10 @@ func AddToDict(dict_buf []byte, dictionary *lib_dict.Dictionary) {
 }
 
 func main() {
-	/*
-		buffer, err := os.ReadFile("diagram.txt")
-		if err != nil {
-			log.Fatal(err)
-		}
-	*/
+	buffer, err := os.ReadFile("diagram.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	dict_buf, err := os.ReadFile("dictionary.txt")
 	if err != nil {
@@ -33,4 +32,5 @@ func main() {
 
 	dictionary := lib_dict.NewDictionary()
 	AddToDict(dict_buf, dictionary)
+	solve.Solve(buffer)
 }
