@@ -32,5 +32,7 @@ func main() {
 
 	dictionary := lib_dict.NewDictionary()
 	AddToDict(dict_buf, dictionary)
-	solve.Solve(buffer)
+
+	wordRepo := lib_dict.NewWordRepo()
+	solve.Solve(string(buffer), wordRepo, dictionary)
 }
