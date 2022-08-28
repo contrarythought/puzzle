@@ -35,4 +35,7 @@ func main() {
 
 	wordRepo := lib_dict.NewWordRepo()
 	solve.Solve(string(buffer), wordRepo, dictionary)
+
+	// prints out all words in the picture
+	wordRepo.PrintWordsJSON()
 }
