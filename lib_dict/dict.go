@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 )
 
 type Dictionary struct {
@@ -25,6 +26,7 @@ func (d *Dictionary) Add(word string) {
 }
 
 type WordRepo struct {
+	mu  sync.Mutex
 	Set map[string]struct{}
 }
 
@@ -35,6 +37,8 @@ func NewWordRepo() *WordRepo {
 // if word is in the dictionary add to repo
 func (wp *WordRepo) Add(word string, d *Dictionary) {
 	if d.Has(word) {
+		wp.mu.Lock()
+		defer wp.mu.Unlock()
 		wp.Set[word] = struct{}{}
 	}
 }
