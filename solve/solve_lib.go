@@ -1,7 +1,6 @@
 package solve
 
 import (
-	"fmt"
 	"nymin/lib_dict"
 	"strings"
 	"sync"
@@ -9,7 +8,7 @@ import (
 
 const (
 	// CHANGE TO 255
-	MAX_BOUNDARY = 15
+	MAX_BOUNDARY = 255
 )
 
 // TODO
@@ -48,7 +47,7 @@ func AnalyzeFront(index int, diagram string, wp *lib_dict.WordRepo, d *lib_dict.
 		return
 	} else {
 		word = append(word, rune(diagram[index]))
-		fmt.Println(string(word))
+		//fmt.Println(string(word))
 		wp.Add(strings.TrimSpace(string(word)), d)
 		index++
 		AnalyzeFront(index, diagram, wp, d, word)
