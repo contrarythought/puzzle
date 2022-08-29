@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"nymin/lib_dict"
 	"nymin/solve"
@@ -20,7 +21,7 @@ func AddToDict(dict_buf []byte, dictionary *lib_dict.Dictionary) {
 }
 
 func main() {
-	buffer, err := os.ReadFile("diagram.txt")
+	buffer, err := os.ReadFile("diagram2.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,4 +39,10 @@ func main() {
 
 	// prints out all words in the picture
 	wordRepo.PrintWordsJSON()
+
+	if dictionary.Has("shapable") {
+		fmt.Println("HAS SAUCE")
+	} else {
+		fmt.Println("NO SAUCE")
+	}
 }
