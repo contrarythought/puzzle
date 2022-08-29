@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"sync"
 )
 
@@ -22,6 +23,7 @@ func (d *Dictionary) Has(word string) bool {
 }
 
 func (d *Dictionary) Add(word string) {
+	strings.TrimSpace(word)
 	d.Set[word] = struct{}{}
 }
 
@@ -36,9 +38,9 @@ func NewWordRepo() *WordRepo {
 
 // if word is in the dictionary add to repo
 func (wp *WordRepo) Add(word string, d *Dictionary) {
+	wp.mu.Lock()
+	defer wp.mu.Unlock()
 	if d.Has(word) {
-		wp.mu.Lock()
-		defer wp.mu.Unlock()
 		wp.Set[word] = struct{}{}
 	}
 }
@@ -52,5 +54,6 @@ func (wp *WordRepo) PrintWordsJSON() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprintf(f, "%s", string(b))
+	trimmed := strings.Trim(string(b), "\n\r\t")
+	fmt.Fprintf(f, "%s", trimmed)
 }
