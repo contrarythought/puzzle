@@ -17,6 +17,21 @@ func NewDictionary() *Dictionary {
 	return &Dictionary{Set: make(map[string]struct{})}
 }
 
+func (d *Dictionary) AddToDict(dict_buf []byte) {
+	var tmp_buf []byte
+	for _, char := range string(dict_buf) {
+		//fmt.Print("CHAR:", string(char), " ")
+		//fmt.Printf(" HEX: %x ", string(char))
+		if string(char) == "\n" {
+			//fmt.Println()
+			d.Add(string(tmp_buf))
+			tmp_buf = nil
+		} else if string(char) != "\r" {
+			tmp_buf = append(tmp_buf, byte(char))
+		}
+	}
+}
+
 func (d *Dictionary) Has(word string) bool {
 	_, ok := d.Set[word]
 	return ok
